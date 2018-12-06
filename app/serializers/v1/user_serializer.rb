@@ -4,8 +4,4 @@ class V1::UserSerializer < ActiveModel::Serializer
   def id
     Utils::EncryptManager.encrypt object.id
   end
-
-  def password
-    Utils::EncryptManager.encrypt object.password
-  end
 end
