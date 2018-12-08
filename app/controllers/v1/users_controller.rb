@@ -3,11 +3,6 @@
 class V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[login register]
 
-  def index
-    users = User.all
-    render json: users, status: :ok
-  end
-
   def register
     user = User.create(user_params)
     if user.save
@@ -26,6 +21,21 @@ class V1::UsersController < ApplicationController
     render json: {
       message: 'You have passed authentication and authorization test'
     }
+  end
+
+  def list
+    users = User.all
+    render json: users, status: :ok
+  end
+
+  def info
+  end
+
+  def update
+    #decode password
+  end
+
+  def delete
   end
 
   private
