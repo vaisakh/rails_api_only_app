@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20181208080546) do
 
-  create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
     t.string "subdomain"
     t.integer "owner_id"
     t.datetime "created_at", null: false
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20181208080546) do
     t.string "company"
   end
 
-  create_table "users", primary_key: "user_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string "user_name", limit: 200, null: false
     t.string "password"
     t.string "first_name", limit: 50
