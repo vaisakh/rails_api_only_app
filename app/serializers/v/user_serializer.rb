@@ -1,4 +1,4 @@
-class V1::UserSerializer < ActiveModel::Serializer
+class V::UserSerializer < ActiveModel::Serializer
   attributes :id, :user_name, :password, :first_name, :last_name, :email_id, :active
 
   def id

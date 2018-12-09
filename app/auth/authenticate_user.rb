@@ -17,6 +17,7 @@ class AuthenticateUser
   private
 
   def user
+    #should switch to db?
     user = User.find_by_email_id(email_id)
     return user if user && user.authenticate(password)
 

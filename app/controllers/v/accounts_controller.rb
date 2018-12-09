@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
-class V1::AccountsController < ApplicationController
+class V::AccountsController < ApplicationController
+  skip_before_action :load_schema, only: %i[create]
   skip_before_action :authenticate_request, only: %i[create]
 
   def create
-    account = Account.create(account_params)
-    if account.save
+    account = Account.new(account_params)
+    if account.valid?
+      Apartment::Tenant.create(account.subdomain)
+      Apartment::Tenant.switch!(account.subdomain)
+      account.save
+      #return subdomain?
       response = { message: 'Account created successfully' }
       render json: response, status: :created
     else

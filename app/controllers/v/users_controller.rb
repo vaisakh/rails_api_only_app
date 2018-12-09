@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::UsersController < ApplicationController
+class V::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[login register]
 
   def register
