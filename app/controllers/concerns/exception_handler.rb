@@ -7,6 +7,7 @@ module ExceptionHandler
   class InvalidToken < StandardError; end
   class ExpiredSignature < StandardError; end
   class DecodeError < StandardError; end
+  class TenantNotFound < StandardError; end
 
   included do
     # Define custom handlers
@@ -16,6 +17,7 @@ module ExceptionHandler
     rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_two
     rescue_from ExceptionHandler::ExpiredSignature, with: :four_ninety_eight
     rescue_from ExceptionHandler::DecodeError, with: :four_zero_one
+    rescue_from ExceptionHandler::TenantNotFound, with: :four_zero_four
 
     rescue_from ActiveRecord::RecordNotFound do |e|
       render json: { message: e.message }, status: :not_found
@@ -42,6 +44,12 @@ module ExceptionHandler
 
   # JSON response with message; Status code 401 - Unauthorized
   def four_zero_one(e)
+    #render json: { message: e.message  }, status: :invalid_token
+    render json: unauthorized_message, status: :invalid_token
+  end
+
+  # JSON response with message; Status code 404 - Unauthorized
+  def four_zero_four(e)
     #render json: { message: e.message  }, status: :invalid_token
     render json: unauthorized_message, status: :invalid_token
   end

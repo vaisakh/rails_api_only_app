@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   private
   def authenticate_request
     @current_user = AuthorizeApiRequest.call(request.headers).result
-    render json: { error: 'Not Authorized'  }, status: 401 unless @current_user
+    raise ExceptionHandler::AuthenticationError unless @current_user
   end
 
   def load_schema
@@ -19,8 +19,8 @@ class ApplicationController < ActionController::API
     if account
       Apartment::Tenant.switch!(request.subdomain)
     else
-      #invalid subdomain
-      render json: {error: 'Invalid subdomain'}
+      # Invalid subdomain
+      raise ExceptionHandler::TenantNotFound
     end
   end
 end

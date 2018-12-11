@@ -7,6 +7,7 @@
 require 'apartment/elevators/subdomain'
 # require 'apartment/elevators/first_subdomain'
 # require 'apartment/elevators/host'
+require 'utils/rescued_apartment_middleware'
 
 #
 # Apartment Configuration
@@ -104,6 +105,8 @@ end
 # }
 
 # Rails.application.config.middleware.use Apartment::Elevators::Domain
-Rails.application.config.middleware.use Apartment::Elevators::Subdomain
+#Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 # Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
 # Rails.application.config.middleware.use Apartment::Elevators::Host
+Rails.application.config.middleware.use Utils::ApartmentTenantMiddleware
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www']
