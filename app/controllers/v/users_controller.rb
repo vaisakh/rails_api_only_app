@@ -4,12 +4,11 @@ class V::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[login register]
 
   def register
-    user = User.create(user_params)
+    user = User.new(user_params)
     if user.save
-      response = { message: 'User created successfully' }
-      render json: response, status: :created
+      render json: true, status: :created
     else
-      render json: user.errors, status: :bad
+      render json: false, status: :bad
     end
   end
 

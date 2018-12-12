@@ -11,10 +11,9 @@ class V::AccountsController < ApplicationController
       Apartment::Tenant.switch!(account.subdomain)
       account.save
       #return subdomain?
-      response = { message: 'Account created successfully' }
-      render json: response, status: :created
+      render json: true, status: :created
     else
-      render json: account.errors, status: :bad
+      render json: false, status: :bad
     end
   end
 
