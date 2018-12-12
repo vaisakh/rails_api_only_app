@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       get 'user/info', to: 'users#info'
       post 'user/update', to: 'users#update'
       delete 'user/delete', to: 'users#delete'
+
+      #survey
+      post 'survey/create', to: 'survey#create'
     end
 
     constraints(SubdomainBlank) do
