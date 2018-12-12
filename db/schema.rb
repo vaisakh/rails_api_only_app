@@ -10,21 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212124447) do
+ActiveRecord::Schema.define(version: 20181212155330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.string "subdomain"
-    t.integer "owner_id"
+    t.string "subdomain", null: false
+    t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "company"
+    t.string "company", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "q_type", null: false
+    t.integer "survey_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,4 +48,5 @@ ActiveRecord::Schema.define(version: 20181212124447) do
     t.string "password_digest"
   end
 
+  add_foreign_key "questions", "surveys"
 end

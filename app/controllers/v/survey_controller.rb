@@ -13,6 +13,7 @@ class V::SurveyController < ApplicationController
 
   private
   def survey_params
-    params.require(:survey).permit(:title)
+    params.require(:survey).permit(
+      :title, questions_attributes: [:title, :q_type])
   end
 end
