@@ -15,6 +15,7 @@ TYPES = %w(
 
   # Associations
   belongs_to :survey, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   # Validations
   validates :survey, presence: true

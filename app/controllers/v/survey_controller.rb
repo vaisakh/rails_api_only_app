@@ -2,6 +2,10 @@
 
 class V::SurveyController < ApplicationController
 
+  def list
+    render json: Survey.all.to_json
+  end
+
   def create
     survey = Survey.new(survey_params)
     if survey.save
